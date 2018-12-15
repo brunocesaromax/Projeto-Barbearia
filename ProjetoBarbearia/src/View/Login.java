@@ -5,17 +5,21 @@
  */
 package View;
 
+import Controller.LoginController;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+
 /**
  *
  * @author brunocesar
  */
-public class TelaLogin extends javax.swing.JFrame {
+public class Login extends javax.swing.JFrame {
 
-    /**
-     * Creates new form TelaLogin
-     */
-    public TelaLogin() {
+    private final LoginController loginController;
+    
+    public Login() {
         initComponents();
+        loginController = new LoginController(this);
     }
 
     /**
@@ -29,8 +33,9 @@ public class TelaLogin extends javax.swing.JFrame {
 
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        UsuariojTextField1 = new javax.swing.JTextField();
+        SenhajPasswordField1 = new javax.swing.JPasswordField();
+        jToggleButton1 = new javax.swing.JToggleButton();
         LoginjLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -47,19 +52,29 @@ public class TelaLogin extends javax.swing.JFrame {
         jLabel3.setText("Usuário");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, -1, -1));
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        UsuariojTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                UsuariojTextField1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 270, 40));
+        getContentPane().add(UsuariojTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 270, 40));
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        SenhajPasswordField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                SenhajPasswordField1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, 270, 40));
+        getContentPane().add(SenhajPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, 270, 40));
+
+        jToggleButton1.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        jToggleButton1.setForeground(new java.awt.Color(1, 1, 1));
+        jToggleButton1.setText("Logar");
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, 190, -1));
 
         LoginjLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Imagens/barber-shop-mock-up_7939-1652.jpg"))); // NOI18N
         LoginjLabel.setPreferredSize(new java.awt.Dimension(1280, 720));
@@ -68,13 +83,17 @@ public class TelaLogin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void UsuariojTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuariojTextField1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_UsuariojTextField1ActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        loginController.logar();
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
+
+    private void SenhajPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SenhajPasswordField1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_SenhajPasswordField1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -93,29 +112,52 @@ public class TelaLogin extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaLogin().setVisible(true);
+                new Login().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LoginjLabel;
+    private javax.swing.JPasswordField SenhajPasswordField1;
+    private javax.swing.JTextField UsuariojTextField1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JToggleButton jToggleButton1;
     // End of variables declaration//GEN-END:variables
+
+    
+    public JTextField getUsuariojTextField1() {
+        return UsuariojTextField1;
+    }
+
+    public void setUsuariojTextField1(JTextField UsuariojTextField1) {
+        this.UsuariojTextField1 = UsuariojTextField1;
+    }
+
+    public JPasswordField getSenhajPasswordField1() {
+        return SenhajPasswordField1;
+    }
+
+    public void setSenhajPasswordField1(JPasswordField SenhajPasswordField1) {
+        this.SenhajPasswordField1 = SenhajPasswordField1;
+    }
+    
+    
+   
+    
 }

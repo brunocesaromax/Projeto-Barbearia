@@ -13,7 +13,7 @@ public class Barbeiro {
 
     private Long id;
     private String nome;
-    private String email;
+    private String username;
     private String senha;
 
     public Long getId() {
@@ -26,7 +26,7 @@ public class Barbeiro {
 
     public Barbeiro(String nome, String email, String senha) {
         this.nome = nome;
-        this.email = email;
+        this.username = email;
         this.senha = senha;
     }
 
@@ -38,12 +38,12 @@ public class Barbeiro {
         this.nome = nome;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getSenha() {
