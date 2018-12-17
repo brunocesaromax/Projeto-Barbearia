@@ -5,6 +5,8 @@
  */
 package Model;
 
+import Utilitarios.Utilitario;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -25,18 +27,23 @@ public class Agendamento {
     private String observacao;
     private Barbeiro barbeiro;
 
-    public Agendamento(Long id, String nomeCliente, float valor, String data, Date hora, EnumServico servico, String observacao, Barbeiro barbeiro) {
+    public Agendamento(Long id, String nomeCliente, float valor, String data, EnumServico servico, String observacao, Barbeiro barbeiro) {
         this.id = id;
         this.nomeCliente = nomeCliente;
         this.valor = valor;
-        try {
+        this.data = Utilitario.getDataFormatada(data);
+        /*try {
             this.data = new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(data);
         } catch (ParseException ex) {
             Logger.getLogger(Agendamento.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
         this.servico = servico;
         this.observacao = observacao;
         this.barbeiro = barbeiro;
+    }
+
+    public Agendamento(Long id) {
+        this.id = id;
     }
 
     public Long getId() {

@@ -16,7 +16,6 @@ public class TesteBD {
     public static void main(String args[]){
         
         Connection connection = ConeccaoMySql.getConexaoMySQL();
-        
         System.out.println(ConeccaoMySql.status);
         
     }

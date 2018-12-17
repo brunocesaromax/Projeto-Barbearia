@@ -5,17 +5,21 @@
  */
 package View;
 
+import Controller.AgendaController;
+
+import javax.swing.*;
+
 /**
  *
  * @author brunocesar
  */
 public class Agenda extends javax.swing.JFrame {
 
-    /**
-     * Creates new form TelaAgenda
-     */
+    private final AgendaController agendaController;
+
     public Agenda() {
         initComponents();
+        agendaController = new AgendaController();
     }
 
     /**
@@ -237,4 +241,69 @@ public class Agenda extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+
+
+    public JComboBox<String> getClientejComboBox1() {
+        return ClientejComboBox1;
+    }
+
+    public void setClientejComboBox1(JComboBox<String> clientejComboBox1) {
+        ClientejComboBox1 = clientejComboBox1;
+    }
+
+    public JTextField getDatajTextField5() {
+        return DatajTextField5;
+    }
+
+    public void setDatajTextField5(JTextField datajTextField5) {
+        DatajTextField5 = datajTextField5;
+    }
+
+    public JTextField getHorajTextField6() {
+        return HorajTextField6;
+    }
+
+    public void setHorajTextField6(JTextField horajTextField6) {
+        HorajTextField6 = horajTextField6;
+    }
+
+    public JTextField getIDjTextField() {
+        return IDjTextField;
+    }
+
+    public void setIDjTextField(JTextField IDjTextField) {
+        this.IDjTextField = IDjTextField;
+    }
+
+    public JScrollPane getObservacaojScrollPane1() {
+        return ObservacaojScrollPane1;
+    }
+
+    public void setObservacaojScrollPane1(JScrollPane observacaojScrollPane1) {
+        ObservacaojScrollPane1 = observacaojScrollPane1;
+    }
+
+    public JTextArea getObservacaojTextArea1() {
+        return ObservacaojTextArea1;
+    }
+
+    public void setObservacaojTextArea1(JTextArea observacaojTextArea1) {
+        ObservacaojTextArea1 = observacaojTextArea1;
+    }
+
+    public JComboBox<String> getServicojComboBox2() {
+        return ServicojComboBox2;
+    }
+
+    public void setServicojComboBox2(JComboBox<String> servicojComboBox2) {
+        ServicojComboBox2 = servicojComboBox2;
+    }
+
+    public JTextField getValorjTextField() {
+        return ValorjTextField;
+    }
+
+    public void setValorjTextField(JTextField valorjTextField) {
+        ValorjTextField = valorjTextField;
+    }
 }
