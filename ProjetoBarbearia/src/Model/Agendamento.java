@@ -46,6 +46,10 @@ public class Agendamento {
         this.id = id;
     }
 
+    public Agendamento() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public Long getId() {
         return id;
     }

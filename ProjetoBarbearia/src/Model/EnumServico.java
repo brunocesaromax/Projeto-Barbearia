@@ -12,5 +12,9 @@ package Model;
 public enum EnumServico {
 
     CORTE, BARBA, QUIMICA, PIGMENTACAO;
+
+    public static EnumServico valueOf(int aInt) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

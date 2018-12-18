@@ -17,13 +17,7 @@ import java.sql.SQLException;
  * @author brunocesar
  */
 public class BarbeiroDao {
-
-//    List<Employee> findAll();
-//    List<Employee> findById();
-//    List<Employee> findByName();
-//    boolean insertEmployee(Employee employee);
-//    boolean updateEmployee(Employee employee);
-//    boolean deleteEmployee(Employee employee);
+    
     public boolean insert(Barbeiro barbeiro) {
 
         boolean resultado = false;
@@ -58,7 +52,7 @@ public class BarbeiroDao {
 
         //A instrução try -with-resources, que fechará a conexão automaticamente
         try (Connection conn = ConeccaoMySql.getConexaoMySQL()) {
-            
+
             String sql = "SELECT * FROM Barbeiro WHERE username = ?";
 
             PreparedStatement statement = conn.prepareStatement(sql);
@@ -78,6 +72,59 @@ public class BarbeiroDao {
         }
 
         return barbeiro;
+    }
+
+    public boolean delete(Long id) {
+
+        boolean resultado = false;
+
+        //A instrução try -with-resources, que fechará a conexão automaticamente
+        try (Connection conn = ConeccaoMySql.getConexaoMySQL()) {
+
+            String sql = "DELETE FROM Barbeiro WHERE id=?";
+
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, String.valueOf(id));
+
+            int rowsDeleted = statement.executeUpdate();
+            if (rowsDeleted > 0) {
+                resultado = true;
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return resultado;
+
+    }
+
+    public boolean update(Barbeiro barbeiro) {
+
+        boolean resultado = false;
+
+        //A instrução try -with-resources, que fechará a conexão automaticamente
+        try (Connection conn = ConeccaoMySql.getConexaoMySQL()) {
+
+            String sql = "UPDATE Barbeiro SET nome=?, username=?, senha=? WHERE id=?";
+
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, barbeiro.getNome());
+            statement.setString(2, barbeiro.getUsername());
+            statement.setString(3, barbeiro.getSenha());
+            statement.setString(4, String.valueOf(barbeiro.getId()));
+
+            int rowsUpdated = statement.executeUpdate();
+            if (rowsUpdated > 0) {
+                resultado = true;
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return resultado;
+
     }
 
 }
