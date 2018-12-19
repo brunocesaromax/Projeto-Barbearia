@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  *
@@ -25,11 +26,11 @@ public class BarbeiroDao {
         //A instrução try -with-resources, que fechará a conexão automaticamente
         try (Connection conn = ConeccaoMySql.getConexaoMySQL()) {
 
-            String sql = "INSERT INTO Barbeiro (nome, username, senha) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO Barbeiro (nome, nomeUsuario, senha) VALUES (?, ?, ?)";
 
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, barbeiro.getNome());
-            statement.setString(2, barbeiro.getUsername());
+            statement.setString(2, barbeiro.getNomeUsuario());
             statement.setString(3, barbeiro.getSenha());
 
             int rowsInserted = statement.executeUpdate();
@@ -45,26 +46,23 @@ public class BarbeiroDao {
         return resultado;
     }
 
-    public Barbeiro findByUsername(String username) {
+    public Barbeiro findByUsername(String nomeUsuario, String senha) {
 
         boolean resultado = false;
         Barbeiro barbeiro = null;
 
         //A instrução try -with-resources, que fechará a conexão automaticamente
         try (Connection conn = ConeccaoMySql.getConexaoMySQL()) {
+            
+            //troca de username -> nomeUsuario, pois estava dando conflito no banco de dados
+            String sql = "SELECT * FROM Barbeiro WHERE nomeUsuario = '"+nomeUsuario+"' AND senha = '"+senha+"' ";
 
-            String sql = "SELECT * FROM Barbeiro WHERE username = ?";
-
-            PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setString(1, username);
+            Statement statement = conn.prepareStatement(sql);
             ResultSet result = statement.executeQuery(sql);
 
-            int count = 0;
-
             while (result.next()) {
+                barbeiro = new Barbeiro();
                 barbeiro.setId(result.getLong("id"));
-                //String output = "User #%d: %s - %s - %s - %s";
-                //System.out.println(String.format(output, ++count, name, pass, fullname, email));
             }
 
         } catch (SQLException ex) {
@@ -72,6 +70,30 @@ public class BarbeiroDao {
         }
 
         return barbeiro;
+    }
+    
+    public int numberOfUsername(String nomeUsuario) {
+
+        int count = 0;
+        
+        //A instrução try -with-resources, que fechará a conexão automaticamente
+        try (Connection conn = ConeccaoMySql.getConexaoMySQL()) {
+
+            String sql = "SELECT COUNT(*) FROM Barbeiro WHERE nomeUsuario = ?";
+
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, nomeUsuario);
+            ResultSet result = statement.executeQuery();
+          
+            while (result.next()) {
+                count = result.getInt(1);
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return count;
     }
 
     public boolean delete(Long id) {
@@ -106,11 +128,11 @@ public class BarbeiroDao {
         //A instrução try -with-resources, que fechará a conexão automaticamente
         try (Connection conn = ConeccaoMySql.getConexaoMySQL()) {
 
-            String sql = "UPDATE Barbeiro SET nome=?, username=?, senha=? WHERE id=?";
+            String sql = "UPDATE Barbeiro SET nome=?, nomeUsuario=?, senha=? WHERE id=?";
 
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, barbeiro.getNome());
-            statement.setString(2, barbeiro.getUsername());
+            statement.setString(2, barbeiro.getNomeUsuario());
             statement.setString(3, barbeiro.getSenha());
             statement.setString(4, String.valueOf(barbeiro.getId()));
 

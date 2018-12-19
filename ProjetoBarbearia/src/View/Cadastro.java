@@ -5,17 +5,22 @@
  */
 package View;
 
+import Controller.CadastroController;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+
 /**
  *
  * @author brunocesar
  */
 public class Cadastro extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Cadastro
-     */
+    private final CadastroController controller;
+
     public Cadastro() {
         initComponents();
+        controller = new CadastroController(this);
     }
 
     /**
@@ -31,6 +36,7 @@ public class Cadastro extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         SalvarBarbeirojButton = new javax.swing.JButton();
+        VoltarParaLoginjButton = new javax.swing.JButton();
         NomeBarbeirojTextField1 = new javax.swing.JTextField();
         UsernameBarbeirojTextField2 = new javax.swing.JTextField();
         SenhaBarbeirojPasswordField1 = new javax.swing.JPasswordField();
@@ -48,8 +54,8 @@ public class Cadastro extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(254, 254, 254));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Username:");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 150, -1, -1));
+        jLabel3.setText("Nome de Usuário:");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 150, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(254, 254, 254));
@@ -59,7 +65,21 @@ public class Cadastro extends javax.swing.JFrame {
 
         SalvarBarbeirojButton.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         SalvarBarbeirojButton.setText("Salvar");
-        getContentPane().add(SalvarBarbeirojButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 280, 180, -1));
+        SalvarBarbeirojButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SalvarBarbeirojButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(SalvarBarbeirojButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 280, 180, -1));
+
+        VoltarParaLoginjButton.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        VoltarParaLoginjButton.setText("Voltar");
+        VoltarParaLoginjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VoltarParaLoginjButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(VoltarParaLoginjButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 280, 180, -1));
         getContentPane().add(NomeBarbeirojTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 90, 310, 30));
 
         UsernameBarbeirojTextField2.addActionListener(new java.awt.event.ActionListener() {
@@ -79,6 +99,27 @@ public class Cadastro extends javax.swing.JFrame {
     private void UsernameBarbeirojTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsernameBarbeirojTextField2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_UsernameBarbeirojTextField2ActionPerformed
+
+    private void SalvarBarbeirojButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalvarBarbeirojButtonActionPerformed
+
+        if (Utilitarios.Validacao.isNullOrEmpty(NomeBarbeirojTextField1.getText())
+                || Utilitarios.Validacao.isNullOrEmpty(UsernameBarbeirojTextField2.getText())
+                || Utilitarios.Validacao.isNullOrEmpty(SenhaBarbeirojPasswordField1.getText())) {
+
+            JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos.");
+            return;
+        } else {
+            controller.salvarNovoBarbeiro();
+        }
+
+    }//GEN-LAST:event_SalvarBarbeirojButtonActionPerformed
+
+    private void VoltarParaLoginjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VoltarParaLoginjButtonActionPerformed
+
+        Login login = new Login();
+        login.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_VoltarParaLoginjButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -120,9 +161,35 @@ public class Cadastro extends javax.swing.JFrame {
     private javax.swing.JButton SalvarBarbeirojButton;
     private javax.swing.JPasswordField SenhaBarbeirojPasswordField1;
     private javax.swing.JTextField UsernameBarbeirojTextField2;
+    private javax.swing.JButton VoltarParaLoginjButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     // End of variables declaration//GEN-END:variables
+
+    public JTextField getNomeBarbeirojTextField1() {
+        return NomeBarbeirojTextField1;
+    }
+
+    public void setNomeBarbeirojTextField1(JTextField NomeBarbeirojTextField1) {
+        this.NomeBarbeirojTextField1 = NomeBarbeirojTextField1;
+    }
+
+    public JPasswordField getSenhaBarbeirojPasswordField1() {
+        return SenhaBarbeirojPasswordField1;
+    }
+
+    public void setSenhaBarbeirojPasswordField1(JPasswordField SenhaBarbeirojPasswordField1) {
+        this.SenhaBarbeirojPasswordField1 = SenhaBarbeirojPasswordField1;
+    }
+
+    public JTextField getUsernameBarbeirojTextField2() {
+        return UsernameBarbeirojTextField2;
+    }
+
+    public void setUsernameBarbeirojTextField2(JTextField UsernameBarbeirojTextField2) {
+        this.UsernameBarbeirojTextField2 = UsernameBarbeirojTextField2;
+    }
+
 }

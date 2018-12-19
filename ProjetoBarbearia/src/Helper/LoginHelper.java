@@ -26,7 +26,7 @@ public class LoginHelper {
     }
 
     public void setModelo(Barbeiro modelo) {
-        view.getUsuariojTextField1().setText(modelo.getUsername());
+        view.getUsuariojTextField1().setText(modelo.getNomeUsuario());
         view.getSenhajPasswordField1().setText(modelo.getSenha());
     }
 

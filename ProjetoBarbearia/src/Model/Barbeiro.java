@@ -13,11 +13,10 @@ public class Barbeiro {
 
     private Long id;
     private String nome;
-    private String username;
+    private String nomeUsuario;
     private String senha;
 
     public Barbeiro() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public Long getId() {
@@ -30,7 +29,7 @@ public class Barbeiro {
 
     public Barbeiro(String nome, String email, String senha) {
         this.nome = nome;
-        this.username = email;
+        this.nomeUsuario = email;
         this.senha = senha;
     }
 
@@ -42,12 +41,12 @@ public class Barbeiro {
         this.nome = nome;
     }
 
-    public String getUsername() {
-        return username;
+    public String getNomeUsuario() {
+        return nomeUsuario;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setNomeUsuario(String nomeUsuario) {
+        this.nomeUsuario = nomeUsuario;
     }
 
     public String getSenha() {

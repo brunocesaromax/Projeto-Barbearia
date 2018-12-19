@@ -34,8 +34,11 @@ public class Login extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         UsuariojTextField1 = new javax.swing.JTextField();
+        CadastrarjToggleButton = new javax.swing.JToggleButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         SenhajPasswordField1 = new javax.swing.JPasswordField();
-        jToggleButton1 = new javax.swing.JToggleButton();
+        LogarjToggleButton = new javax.swing.JToggleButton();
         LoginjLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -45,36 +48,53 @@ public class Login extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 245, 245));
         jLabel2.setText("Senha");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 245, 245));
         jLabel3.setText("Usuário");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, -1, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, -1, -1));
 
         UsuariojTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 UsuariojTextField1ActionPerformed(evt);
             }
         });
-        getContentPane().add(UsuariojTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 270, 40));
+        getContentPane().add(UsuariojTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 270, 40));
+
+        CadastrarjToggleButton.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        CadastrarjToggleButton.setForeground(new java.awt.Color(1, 1, 1));
+        CadastrarjToggleButton.setText("Cadastrar");
+        CadastrarjToggleButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CadastrarjToggleButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(CadastrarjToggleButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 330, 190, -1));
+
+        jLabel1.setForeground(new java.awt.Color(254, 254, 254));
+        jLabel1.setText("Não possui cadastro? Clique em cadastrar.");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, 290, 30));
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Imagens/Agenda-PainelFundo.png"))); // NOI18N
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, 340, 30));
 
         SenhajPasswordField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SenhajPasswordField1ActionPerformed(evt);
             }
         });
-        getContentPane().add(SenhajPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, 270, 40));
+        getContentPane().add(SenhajPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, 270, 40));
 
-        jToggleButton1.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jToggleButton1.setForeground(new java.awt.Color(1, 1, 1));
-        jToggleButton1.setText("Logar");
-        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+        LogarjToggleButton.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        LogarjToggleButton.setForeground(new java.awt.Color(1, 1, 1));
+        LogarjToggleButton.setText("Logar");
+        LogarjToggleButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton1ActionPerformed(evt);
+                LogarjToggleButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, 190, -1));
+        getContentPane().add(LogarjToggleButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 240, 190, -1));
 
         LoginjLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Imagens/barber-shop-mock-up_7939-1652.jpg"))); // NOI18N
         LoginjLabel.setPreferredSize(new java.awt.Dimension(1280, 720));
@@ -87,13 +107,19 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_UsuariojTextField1ActionPerformed
 
-    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+    private void LogarjToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogarjToggleButtonActionPerformed
         loginController.logar();
-    }//GEN-LAST:event_jToggleButton1ActionPerformed
+    }//GEN-LAST:event_LogarjToggleButtonActionPerformed
 
     private void SenhajPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SenhajPasswordField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_SenhajPasswordField1ActionPerformed
+
+    private void CadastrarjToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastrarjToggleButtonActionPerformed
+        
+        Cadastro cadastro = new Cadastro();
+        cadastro.setVisible(true);
+    }//GEN-LAST:event_CadastrarjToggleButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -132,12 +158,15 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton CadastrarjToggleButton;
+    private javax.swing.JToggleButton LogarjToggleButton;
     private javax.swing.JLabel LoginjLabel;
     private javax.swing.JPasswordField SenhajPasswordField1;
     private javax.swing.JTextField UsuariojTextField1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JLabel jLabel4;
     // End of variables declaration//GEN-END:variables
 
     

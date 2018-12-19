@@ -31,22 +31,22 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Imagens/fundo-MenuPrincipal.jpg"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Imagens/AgendaFundo.png"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         jMenu1.setBackground(new java.awt.Color(229, 196, 62));
         jMenu1.setText("Agendamento");
 
-        jMenuItem1.setBackground(new java.awt.Color(254, 254, 254));
+        jMenuItem1.setBackground(new java.awt.Color(4, 2, 2));
         jMenuItem1.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jMenuItem1.setForeground(new java.awt.Color(254, 254, 254));
-        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Icons/cliente32-icon.png"))); // NOI18N
+        jMenuItem1.setForeground(new java.awt.Color(1, 1, 1));
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Icons/agenda-icon.png"))); // NOI18N
         jMenuItem1.setText("Agendar");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -55,15 +55,17 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem1);
 
-        jMenuItem2.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jMenuItem2.setForeground(new java.awt.Color(254, 254, 254));
-        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Icons/tesoura32-icon.png"))); // NOI18N
-        jMenuItem2.setText("Serviço");
-        jMenu1.add(jMenuItem2);
-
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Serviço");
+        jMenu2.setText("Serviços");
+
+        jMenuItem2.setBackground(new java.awt.Color(1, 1, 1));
+        jMenuItem2.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        jMenuItem2.setForeground(new java.awt.Color(1, 1, 1));
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Icons/relatorios.png"))); // NOI18N
+        jMenuItem2.setText("Relatórios");
+        jMenu2.add(jMenuItem2);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -72,7 +74,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
+        Agenda agenda= new Agenda();
+        agenda.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
