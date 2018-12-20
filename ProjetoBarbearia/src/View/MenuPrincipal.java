@@ -76,7 +76,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         Agenda agenda= new Agenda();
         agenda.setVisible(true);
-        this.dispose();
+        //this.dispose(); Não é preciso fechar a tela de menu principal
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**

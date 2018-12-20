@@ -7,14 +7,13 @@ package Dao;
 
 import Configuration.ConeccaoMySql;
 import Model.Agendamento;
-import Model.Barbeiro;
 import Model.EnumServico;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  *
@@ -25,22 +24,24 @@ public class AgendamentoDao {
     public boolean insert(Agendamento agendamento) {
 
         boolean resultado = false;
+        java.sql.Timestamp date;
 
         //A instrução try -with-resources, que fechará a conexão automaticamente
         try (Connection conn = ConeccaoMySql.getConexaoMySQL()) {
 
-            String sql = "INSERT INTO Agendamento (nomeCliente, valor, data, servico, observacao, barbeiro) VALUES (?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO Agendamento (nomeCliente, valor, data, servico, observacao, fk_barbeiro_id) VALUES (?, ?, ?, ?, ?, ?)";
 
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, agendamento.getNomeCliente());
             statement.setString(2, String.valueOf(agendamento.getValor()));
-            statement.setDate(3, (java.sql.Date) agendamento.getData());
+            date = new java.sql.Timestamp(agendamento.getData().getTime());// Uso de timestamp para persistir também hora e minuto
+            statement.setTimestamp(3, date);
             statement.setInt(4, agendamento.getServico().ordinal());
             statement.setString(5, agendamento.getObservacao());
-            statement.setObject(3, agendamento.getBarbeiro());
+            statement.setLong(6, agendamento.getBarbeiro().getId());
 
             int rowsInserted = statement.executeUpdate();
-            if (rowsInserted > 0) {
+             if (rowsInserted > 0) {
                 //System.out.println("A new user was inserted successfully!");
                 resultado = true;
             }

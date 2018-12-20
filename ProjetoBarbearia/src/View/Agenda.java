@@ -6,6 +6,8 @@
 package View;
 
 import Controller.AgendaController;
+import Model.EnumServico;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
@@ -19,7 +21,8 @@ public class Agenda extends javax.swing.JFrame {
 
     public Agenda() {
         initComponents();
-        agendaController = new AgendaController();
+        iniciarServicos();
+        agendaController = new AgendaController(this);
     }
 
     /**
@@ -32,12 +35,12 @@ public class Agenda extends javax.swing.JFrame {
     private void initComponents() {
 
         IDjTextField = new javax.swing.JTextField();
-        DatajTextField5 = new javax.swing.JTextField();
-        ValorjTextField = new javax.swing.JTextField();
-        HorajTextField6 = new javax.swing.JTextField();
-        ClientejComboBox1 = new javax.swing.JComboBox<>();
         ServicojComboBox2 = new javax.swing.JComboBox<>();
         AgendarjButton1 = new javax.swing.JButton();
+        NomeClientejTextField1 = new javax.swing.JTextField();
+        ValorjFormattedTextField1 = new javax.swing.JFormattedTextField();
+        DatajFormattedTextField2 = new javax.swing.JFormattedTextField();
+        HorajFormattedTextField3 = new javax.swing.JFormattedTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         ObservacaojScrollPane1 = new javax.swing.JScrollPane();
@@ -55,30 +58,48 @@ public class Agenda extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        IDjTextField.setEditable(false);
+        IDjTextField.setBackground(new java.awt.Color(163, 163, 163));
         IDjTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 IDjTextFieldActionPerformed(evt);
             }
         });
         getContentPane().add(IDjTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 130, 110, -1));
-        getContentPane().add(DatajTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 330, 110, -1));
-        getContentPane().add(ValorjTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 280, 110, -1));
 
-        HorajTextField6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                HorajTextField6ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(HorajTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 370, 110, -1));
-
-        getContentPane().add(ClientejComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 180, 270, -1));
-
-        getContentPane().add(ServicojComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 230, 270, -1));
+        getContentPane().add(ServicojComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 230, 270, 30));
 
         AgendarjButton1.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         AgendarjButton1.setForeground(new java.awt.Color(15, 255, 0));
         AgendarjButton1.setText("Agendar");
+        AgendarjButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AgendarjButton1ActionPerformed(evt);
+            }
+        });
         getContentPane().add(AgendarjButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 380, 480, -1));
+        getContentPane().add(NomeClientejTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 180, 270, 30));
+
+        try {
+            ValorjFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##,##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        getContentPane().add(ValorjFormattedTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 280, 150, 30));
+
+        try {
+            DatajFormattedTextField2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        getContentPane().add(DatajFormattedTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 330, 150, 30));
+
+        try {
+            HorajFormattedTextField3.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##:##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        getContentPane().add(HorajFormattedTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 380, 150, 30));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -179,9 +200,9 @@ public class Agenda extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_IDjTextFieldActionPerformed
 
-    private void HorajTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HorajTextField6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_HorajTextField6ActionPerformed
+    private void AgendarjButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgendarjButton1ActionPerformed
+        agendaController.salvarNovaAgenda();
+    }//GEN-LAST:event_AgendarjButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -221,14 +242,14 @@ public class Agenda extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AgendarjButton1;
-    private javax.swing.JComboBox<String> ClientejComboBox1;
-    private javax.swing.JTextField DatajTextField5;
-    private javax.swing.JTextField HorajTextField6;
+    private javax.swing.JFormattedTextField DatajFormattedTextField2;
+    private javax.swing.JFormattedTextField HorajFormattedTextField3;
     private javax.swing.JTextField IDjTextField;
+    private javax.swing.JTextField NomeClientejTextField1;
     private javax.swing.JScrollPane ObservacaojScrollPane1;
     private javax.swing.JTextArea ObservacaojTextArea1;
     private javax.swing.JComboBox<String> ServicojComboBox2;
-    private javax.swing.JTextField ValorjTextField;
+    private javax.swing.JFormattedTextField ValorjFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -241,31 +262,6 @@ public class Agenda extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
-
-
-    public JComboBox<String> getClientejComboBox1() {
-        return ClientejComboBox1;
-    }
-
-    public void setClientejComboBox1(JComboBox<String> clientejComboBox1) {
-        ClientejComboBox1 = clientejComboBox1;
-    }
-
-    public JTextField getDatajTextField5() {
-        return DatajTextField5;
-    }
-
-    public void setDatajTextField5(JTextField datajTextField5) {
-        DatajTextField5 = datajTextField5;
-    }
-
-    public JTextField getHorajTextField6() {
-        return HorajTextField6;
-    }
-
-    public void setHorajTextField6(JTextField horajTextField6) {
-        HorajTextField6 = horajTextField6;
-    }
 
     public JTextField getIDjTextField() {
         return IDjTextField;
@@ -299,11 +295,50 @@ public class Agenda extends javax.swing.JFrame {
         ServicojComboBox2 = servicojComboBox2;
     }
 
-    public JTextField getValorjTextField() {
-        return ValorjTextField;
+    public JTextField getNomeClientejTextField1() {
+        return NomeClientejTextField1;
     }
 
-    public void setValorjTextField(JTextField valorjTextField) {
-        ValorjTextField = valorjTextField;
+    public void setNomeClientejTextField1(JTextField NomeClientejTextField1) {
+        this.NomeClientejTextField1 = NomeClientejTextField1;
     }
+    
+        private void iniciarServicos() {
+        
+        ArrayList<String> servicos = new ArrayList<>();
+        
+        for(EnumServico servico: EnumServico.values()){
+            servicos.add(servico.getDescricao());
+        }
+        
+        for(String servico: servicos){
+            ServicojComboBox2.addItem(servico);
+        }
+    }
+
+    public javax.swing.JFormattedTextField getDatajFormattedTextField2() {
+        return DatajFormattedTextField2;
+    }
+
+    public void setDatajFormattedTextField2(javax.swing.JFormattedTextField DatajFormattedTextField2) {
+        this.DatajFormattedTextField2 = DatajFormattedTextField2;
+    }
+
+    public javax.swing.JFormattedTextField getHorajFormattedTextField3() {
+        return HorajFormattedTextField3;
+    }
+
+    public void setHorajFormattedTextField3(javax.swing.JFormattedTextField HorajFormattedTextField3) {
+        this.HorajFormattedTextField3 = HorajFormattedTextField3;
+    }
+
+    public javax.swing.JFormattedTextField getValorjFormattedTextField1() {
+        return ValorjFormattedTextField1;
+    }
+
+    public void setValorjFormattedTextField1(javax.swing.JFormattedTextField ValorjFormattedTextField1) {
+        this.ValorjFormattedTextField1 = ValorjFormattedTextField1;
+    }
+
+    
 }

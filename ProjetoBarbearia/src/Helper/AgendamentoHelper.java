@@ -7,8 +7,9 @@ package Helper;
 
 import Model.Agendamento;
 import Model.EnumServico;
-import Utilitarios.Utilitario;
+import Utilitarios.Util;
 import View.Agenda;
+import View.Login;
 
 /**
  *
@@ -24,32 +25,32 @@ public class AgendamentoHelper {
 
     public Agendamento getModelo() {
 
-        Agendamento agendamento = new Agendamento(Long.valueOf(view.getIDjTextField().getText()));
-        agendamento.setNomeCliente((String) view.getClientejComboBox1().getSelectedItem());
-        agendamento.setValor(Float.parseFloat(view.getValorjTextField().getText()));
-        agendamento.setData(Utilitario.getDataFormatada(view.getDatajTextField5().getText()));
-        agendamento.setServico((EnumServico) view.getServicojComboBox2().getSelectedItem());
+        Agendamento agendamento = new Agendamento();
+        agendamento.setNomeCliente(view.getNomeClientejTextField1().getText());
+        agendamento.setValor(Util.getFloatFormatado(view.getValorjFormattedTextField1().getText()));
+        agendamento.setData(Util.getDataFormatada(view.getDatajFormattedTextField2().getText().concat(" "+view.getHorajFormattedTextField3().getText())));
+        agendamento.setServico(EnumServico.valor(String.valueOf(view.getServicojComboBox2().getSelectedItem())));
         agendamento.setObservacao(view.getObservacaojTextArea1().getText());
-        //agendamento.setBarbeiro();todo: Fazer apos criar o DAO
+        agendamento.setBarbeiro(Login.barbeiroSecao);
         return  agendamento;
     }
 
     public void setModelo(Agendamento modelo) {
 
         modelo.setId(Long.valueOf(view.getIDjTextField().getText()));
-        modelo.setNomeCliente((String) view.getClientejComboBox1().getSelectedItem());
-        modelo.setValor(Float.parseFloat(view.getValorjTextField().getText()));
-        modelo.setData(Utilitario.getDataFormatada(view.getDatajTextField5().getText()));
+        modelo.setNomeCliente(view.getNomeClientejTextField1().getText());
+        modelo.setValor(Float.parseFloat(view.getValorjFormattedTextField1().getText()));
+        modelo.setData(Util.getDataFormatada(view.getDatajFormattedTextField2().getText()));
         modelo.setServico((EnumServico) view.getServicojComboBox2().getSelectedItem());
         modelo.setObservacao(view.getObservacaojTextArea1().getText());
     }
 
     public void clearTela() {
         view.getIDjTextField().setText("");
-        //view.getClientejComboBox1().getSelectedItem();
-        view.getValorjTextField().setText("");
-        view.getDatajTextField5().setText("");
-        //view.getServicojComboBox2().getSelectedItem();
+        view.getNomeClientejTextField1().setText("");
+        view.getValorjFormattedTextField1().setText("");
+        view.getDatajFormattedTextField2().setText("");
+        view.getHorajFormattedTextField3().setText("");
         view.getObservacaojTextArea1().setText("");
     }
 

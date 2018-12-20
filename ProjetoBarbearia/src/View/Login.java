@@ -6,6 +6,7 @@
 package View;
 
 import Controller.LoginController;
+import Model.Barbeiro;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
@@ -16,6 +17,7 @@ import javax.swing.JTextField;
 public class Login extends javax.swing.JFrame {
 
     private final LoginController loginController;
+    public static Barbeiro barbeiroSecao;
     
     public Login() {
         initComponents();
@@ -74,10 +76,10 @@ public class Login extends javax.swing.JFrame {
 
         jLabel1.setForeground(new java.awt.Color(254, 254, 254));
         jLabel1.setText("Não possui cadastro? Clique em cadastrar.");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, 290, 30));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, 290, 30));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Imagens/Agenda-PainelFundo.png"))); // NOI18N
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, 340, 30));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 290, 340, 30));
 
         SenhajPasswordField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

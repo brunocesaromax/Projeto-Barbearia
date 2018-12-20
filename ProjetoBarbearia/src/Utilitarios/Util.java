@@ -7,11 +7,11 @@ import java.util.Date;
 /**
  * Created by aluno on 17/12/18.
  */
-public class Utilitario {
+public class Util {
 
     public static SimpleDateFormat dataFormatada = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
-    public static Date getDataFormatada(String data){
+    public static Date getDataFormatada(String data) {
 
         Date date = null;
 
@@ -24,5 +24,13 @@ public class Utilitario {
         return date;
     }
 
+    public static float getFloatFormatado(String valor) {
+
+        if (valor.contains(",")) {
+            valor = valor.replace(',', '.');
+        }
+
+        return Float.valueOf(valor);
+    }
 
 }

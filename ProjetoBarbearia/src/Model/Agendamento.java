@@ -5,7 +5,7 @@
  */
 package Model;
 
-import Utilitarios.Utilitario;
+import Utilitarios.Util;
 
 import java.util.Date;
 
@@ -23,16 +23,10 @@ public class Agendamento {
     private String observacao;
     private Barbeiro barbeiro;
 
-    public Agendamento(Long id, String nomeCliente, float valor, String data, EnumServico servico, String observacao, Barbeiro barbeiro) {
-        this.id = id;
+    public Agendamento(String nomeCliente, float valor, String data, EnumServico servico, String observacao, Barbeiro barbeiro) {
         this.nomeCliente = nomeCliente;
         this.valor = valor;
-        this.data = Utilitario.getDataFormatada(data);
-        /*try {
-            this.data = new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(data);
-        } catch (ParseException ex) {
-            Logger.getLogger(Agendamento.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+        this.data = Util.getDataFormatada(data);
         this.servico = servico;
         this.observacao = observacao;
         this.barbeiro = barbeiro;
@@ -43,7 +37,6 @@ public class Agendamento {
     }
 
     public Agendamento() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public Long getId() {

@@ -40,6 +40,7 @@ public class LoginController {
             
             MenuPrincipal menu = new MenuPrincipal();
             menu.setVisible(true);
+            Login.barbeiroSecao = barbeiroBD;
             view.dispose();
         }
         

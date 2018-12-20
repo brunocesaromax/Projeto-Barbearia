@@ -29,7 +29,6 @@ public class CadastroController {
     
     public void salvarNovoBarbeiro(){
         Barbeiro barbeiro = helper.getModelo();
-        System.out.println(barbeiro.getNome());
         String mensagem;
         int flag = 0;
         
