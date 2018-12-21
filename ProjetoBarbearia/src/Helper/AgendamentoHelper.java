@@ -36,13 +36,13 @@ public class AgendamentoHelper {
     }
 
     public void setModelo(Agendamento modelo) {
-
-        modelo.setId(Long.valueOf(view.getIDjTextField().getText()));
-        modelo.setNomeCliente(view.getNomeClientejTextField1().getText());
-        modelo.setValor(Float.parseFloat(view.getValorjFormattedTextField1().getText()));
-        modelo.setData(Util.getDataFormatada(view.getDatajFormattedTextField2().getText()));
-        modelo.setServico((EnumServico) view.getServicojComboBox2().getSelectedItem());
-        modelo.setObservacao(view.getObservacaojTextArea1().getText());
+        view.getIDjTextField().setText(String.valueOf(modelo.getId()));
+        view.getNomeClientejTextField1().setText(modelo.getNomeCliente());
+        view.getServicojComboBox2().setSelectedItem(modelo.getServico().getDescricao());
+        view.getValorjFormattedTextField1().setText(String.valueOf(modelo.getValor()));
+        view.getDatajFormattedTextField2().setText(Util.dfDate.format(modelo.getData()));
+        view.getHorajFormattedTextField3().setText(Util.dfTime.format(modelo.getData()));
+        view.getObservacaojTextArea1().setText(modelo.getObservacao());
     }
 
     public void clearTela() {

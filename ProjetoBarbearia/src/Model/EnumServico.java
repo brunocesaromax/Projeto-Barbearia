@@ -11,7 +11,8 @@ package Model;
  */
 public enum EnumServico {
 
-    CORTE ("Corte"), BARBA ("Barba"), QUIMICA ("Química"), PIGMENTACAO ("Pigmentação");
+    CORTE ("Corte"), BARBA ("Barba"), QUIMICA ("Química"), PIGMENTACAO ("Pigmentação"), 
+    BARBACORTE ("Barba + Corte");
     
     private String descricao;
  
@@ -26,8 +27,16 @@ public enum EnumServico {
         return descricao;
     }
     
-    public static EnumServico valueOf(int aInt) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public static EnumServico valueOf(int valor) {
+        
+        switch(valor){
+            case 0: return EnumServico.CORTE;
+            case 1: return EnumServico.BARBA;
+            case 2: return EnumServico.QUIMICA;
+            case 3: return EnumServico.PIGMENTACAO;
+            case 4: return EnumServico.BARBACORTE;
+            default: return null;  
+        }
     }
     
     // Retornar enum de acordo com a descrição
@@ -38,6 +47,7 @@ public enum EnumServico {
             case "Barba": return EnumServico.BARBA;
             case "Química": return EnumServico.QUIMICA;
             case "Pigmentação": return EnumServico.PIGMENTACAO;
+            case "Barba + Corte": return EnumServico.BARBACORTE;
             default: return null;  
         }
     }

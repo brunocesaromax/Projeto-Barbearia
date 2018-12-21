@@ -18,11 +18,12 @@ import javax.swing.*;
 public class Agenda extends javax.swing.JFrame {
 
     private final AgendaController agendaController;
-
+    
     public Agenda() {
         initComponents();
         iniciarServicos();
         agendaController = new AgendaController(this);
+        agendaController.atualizarTabelaDeAgendamentos();
     }
 
     /**
@@ -42,7 +43,7 @@ public class Agenda extends javax.swing.JFrame {
         DatajFormattedTextField2 = new javax.swing.JFormattedTextField();
         HorajFormattedTextField3 = new javax.swing.JFormattedTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        TabelaAgendamentosjTable = new javax.swing.JTable();
         ObservacaojScrollPane1 = new javax.swing.JScrollPane();
         ObservacaojTextArea1 = new javax.swing.JTextArea();
         jLabel3 = new javax.swing.JLabel();
@@ -55,7 +56,7 @@ public class Agenda extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         IDjTextField.setEditable(false);
@@ -101,26 +102,28 @@ public class Agenda extends javax.swing.JFrame {
         }
         getContentPane().add(HorajFormattedTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 380, 150, 30));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TabelaAgendamentosjTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "id", "Cliente", "Serviço", "Valor", "Data", "Horario", "Observação"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Float.class, java.lang.String.class, java.lang.String.class
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
             };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        TabelaAgendamentosjTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TabelaAgendamentosjTableMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(TabelaAgendamentosjTable);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 430, 970, -1));
 
@@ -202,7 +205,14 @@ public class Agenda extends javax.swing.JFrame {
 
     private void AgendarjButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgendarjButton1ActionPerformed
         agendaController.salvarNovaAgenda();
+        agendaController.atualizarTabelaDeAgendamentos();
     }//GEN-LAST:event_AgendarjButton1ActionPerformed
+
+    private void TabelaAgendamentosjTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelaAgendamentosjTableMouseClicked
+        
+        long idAgendamento = (long) TabelaAgendamentosjTable.getValueAt(TabelaAgendamentosjTable.getSelectedRow(), 0);
+        agendaController.setFields(idAgendamento);
+    }//GEN-LAST:event_TabelaAgendamentosjTableMouseClicked
 
     /**
      * @param args the command line arguments
@@ -249,6 +259,7 @@ public class Agenda extends javax.swing.JFrame {
     private javax.swing.JScrollPane ObservacaojScrollPane1;
     private javax.swing.JTextArea ObservacaojTextArea1;
     private javax.swing.JComboBox<String> ServicojComboBox2;
+    private javax.swing.JTable TabelaAgendamentosjTable;
     private javax.swing.JFormattedTextField ValorjFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -260,7 +271,6 @@ public class Agenda extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 
     public JTextField getIDjTextField() {
@@ -302,16 +312,16 @@ public class Agenda extends javax.swing.JFrame {
     public void setNomeClientejTextField1(JTextField NomeClientejTextField1) {
         this.NomeClientejTextField1 = NomeClientejTextField1;
     }
-    
-        private void iniciarServicos() {
-        
+
+    private void iniciarServicos() {
+
         ArrayList<String> servicos = new ArrayList<>();
-        
-        for(EnumServico servico: EnumServico.values()){
+
+        for (EnumServico servico : EnumServico.values()) {
             servicos.add(servico.getDescricao());
         }
-        
-        for(String servico: servicos){
+
+        for (String servico : servicos) {
             ServicojComboBox2.addItem(servico);
         }
     }
@@ -337,8 +347,11 @@ public class Agenda extends javax.swing.JFrame {
     }
 
     public void setValorjFormattedTextField1(javax.swing.JFormattedTextField ValorjFormattedTextField1) {
-        this.ValorjFormattedTextField1 = ValorjFormattedTextField1;
-    }
+        this.ValorjFormattedTextField1  = ValorjFormattedTextField1;
+}
 
+    public JTable getTabelaAgendamentosjTable() {
+        return TabelaAgendamentosjTable;
+    }
     
 }

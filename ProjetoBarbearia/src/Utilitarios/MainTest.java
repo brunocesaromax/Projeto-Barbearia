@@ -5,16 +5,22 @@
  */
 package Utilitarios;
 
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author brunocesar
  */
 public class MainTest {
-    
-    public static void main(String args[]){
-        
-       System.out.println(Util.getFloatFormatado("15,00"));
-        
+
+    public static void main(String args[]) {
+
+        float v = (float) 15.456456;
+        System.out.println("R$" + Util.formatarFloat(v));
+
     }
-    
+
 }

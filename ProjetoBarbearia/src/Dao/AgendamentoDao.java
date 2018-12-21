@@ -9,10 +9,10 @@ import Configuration.ConeccaoMySql;
 import Model.Agendamento;
 import Model.EnumServico;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
@@ -41,7 +41,7 @@ public class AgendamentoDao {
             statement.setLong(6, agendamento.getBarbeiro().getId());
 
             int rowsInserted = statement.executeUpdate();
-             if (rowsInserted > 0) {
+            if (rowsInserted > 0) {
                 //System.out.println("A new user was inserted successfully!");
                 resultado = true;
             }
@@ -53,7 +53,7 @@ public class AgendamentoDao {
         return resultado;
     }
 
-    public ArrayList<Agendamento> findByIdBarbeiro(Long idBarbeiro) {
+    public ArrayList<Agendamento> findAllByIdBarbeiro(Long idBarbeiro) {
 
         boolean resultado = false;
         ArrayList<Agendamento> agendamentos = new ArrayList<>();
@@ -61,10 +61,9 @@ public class AgendamentoDao {
         //A instrução try -with-resources, que fechará a conexão automaticamente
         try (Connection conn = ConeccaoMySql.getConexaoMySQL()) {
 
-            String sql = "SELECT * FROM Agendamento WHERE barbeiro.id = ?";
+            String sql = "SELECT * FROM Agendamento WHERE fk_barbeiro_id =" + idBarbeiro + " ORDER BY data";
 
-            PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setString(1, String.valueOf(idBarbeiro));
+            Statement statement = conn.prepareStatement(sql);
             ResultSet result = statement.executeQuery(sql);
 
             while (result.next()) {
@@ -72,6 +71,7 @@ public class AgendamentoDao {
                 agendamento.setId(result.getLong("id"));
                 agendamento.setNomeCliente(result.getString("nomeCliente"));
                 agendamento.setValor(result.getFloat("valor"));
+                agendamento.setData(result.getTimestamp("data"));
                 agendamento.setServico(EnumServico.valueOf(result.getInt("servico")));
                 agendamento.setObservacao(result.getString("observacao"));
                 agendamentos.add(agendamento);
@@ -82,6 +82,36 @@ public class AgendamentoDao {
         }
 
         return agendamentos;
+    }
+
+    public Agendamento findById(Long id) {
+
+        boolean resultado = false;
+        Agendamento agendamento = null;
+
+        //A instrução try -with-resources, que fechará a conexão automaticamente
+        try (Connection conn = ConeccaoMySql.getConexaoMySQL()) {
+
+            String sql = "SELECT * FROM Agendamento WHERE id ="+id;
+
+            Statement statement = conn.prepareStatement(sql);
+            ResultSet result = statement.executeQuery(sql);
+
+            while (result.next()) {
+                agendamento = new Agendamento();
+                agendamento.setId(result.getLong("id"));
+                agendamento.setNomeCliente(result.getString("nomeCliente"));
+                agendamento.setValor(result.getFloat("valor"));
+                agendamento.setData(result.getTimestamp("data"));
+                agendamento.setServico(EnumServico.valueOf(result.getInt("servico")));
+                agendamento.setObservacao(result.getString("observacao"));
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return agendamento;
     }
 
     public boolean delete(Long id) {
