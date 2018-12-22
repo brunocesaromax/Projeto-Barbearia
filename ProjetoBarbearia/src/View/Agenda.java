@@ -7,6 +7,7 @@ package View;
 
 import Controller.AgendaController;
 import Model.EnumServico;
+import Utilitarios.Util;
 import java.util.ArrayList;
 
 import javax.swing.*;
@@ -18,9 +19,10 @@ import javax.swing.*;
 public class Agenda extends javax.swing.JFrame {
 
     private final AgendaController agendaController;
-    
+
     public Agenda() {
         initComponents();
+        this.AtualizarAgendamentojButton1.setEnabled(false);
         iniciarServicos();
         agendaController = new AgendaController(this);
         agendaController.atualizarTabelaDeAgendamentos();
@@ -42,6 +44,8 @@ public class Agenda extends javax.swing.JFrame {
         ValorjFormattedTextField1 = new javax.swing.JFormattedTextField();
         DatajFormattedTextField2 = new javax.swing.JFormattedTextField();
         HorajFormattedTextField3 = new javax.swing.JFormattedTextField();
+        AtualizarAgendamentojButton1 = new javax.swing.JButton();
+        LimparCamposjButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         TabelaAgendamentosjTable = new javax.swing.JTable();
         ObservacaojScrollPane1 = new javax.swing.JScrollPane();
@@ -78,11 +82,11 @@ public class Agenda extends javax.swing.JFrame {
                 AgendarjButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(AgendarjButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 380, 480, -1));
+        getContentPane().add(AgendarjButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 380, 140, 30));
         getContentPane().add(NomeClientejTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 180, 270, 30));
 
         try {
-            ValorjFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##,##")));
+            ValorjFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###,##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -101,6 +105,27 @@ public class Agenda extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         getContentPane().add(HorajFormattedTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 380, 150, 30));
+
+        AtualizarAgendamentojButton1.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        AtualizarAgendamentojButton1.setText("Atualizar");
+        AtualizarAgendamentojButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AtualizarAgendamentojButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(AtualizarAgendamentojButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 380, 140, 30));
+
+        LimparCamposjButton.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        LimparCamposjButton.setText("Limpar");
+        LimparCamposjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LimparCamposjButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(LimparCamposjButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 380, 140, 30));
+
+        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        jScrollPane1.setViewportBorder(javax.swing.BorderFactory.createCompoundBorder());
 
         TabelaAgendamentosjTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -125,7 +150,7 @@ public class Agenda extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(TabelaAgendamentosjTable);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 430, 970, -1));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 430, 970, 270));
 
         ObservacaojTextArea1.setColumns(20);
         ObservacaojTextArea1.setRows(5);
@@ -204,14 +229,44 @@ public class Agenda extends javax.swing.JFrame {
     }//GEN-LAST:event_IDjTextFieldActionPerformed
 
     private void AgendarjButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgendarjButton1ActionPerformed
-        agendaController.salvarNovaAgenda();
-        agendaController.atualizarTabelaDeAgendamentos();
+
+        String mensagem = this.validarCamposObrigatórios();
+
+        if (!Utilitarios.Validacao.isNullOrEmpty(mensagem)) {
+            JOptionPane.showMessageDialog(null, mensagem);
+        } else {
+            agendaController.salvarOuAtualizarAgendamento();
+            agendaController.atualizarTabelaDeAgendamentos();
+        }
+
     }//GEN-LAST:event_AgendarjButton1ActionPerformed
 
+    private void LimparCamposjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LimparCamposjButtonActionPerformed
+        agendaController.limparCampos();
+        this.AgendarjButton1.setEnabled(true);
+        this.AtualizarAgendamentojButton1.setEnabled(false);
+    }//GEN-LAST:event_LimparCamposjButtonActionPerformed
+
+    private void AtualizarAgendamentojButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AtualizarAgendamentojButton1ActionPerformed
+
+        String mensagem = this.validarCamposObrigatórios();
+
+        if (!Utilitarios.Validacao.isNullOrEmpty(mensagem)) {
+            JOptionPane.showMessageDialog(null, mensagem);
+        } else {
+            agendaController.salvarOuAtualizarAgendamento();
+            agendaController.atualizarTabelaDeAgendamentos();
+            agendaController.limparCampos();
+            this.AgendarjButton1.setEnabled(true);
+            this.AtualizarAgendamentojButton1.setEnabled(false);
+        }
+    }//GEN-LAST:event_AtualizarAgendamentojButton1ActionPerformed
+
     private void TabelaAgendamentosjTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelaAgendamentosjTableMouseClicked
-        
         long idAgendamento = (long) TabelaAgendamentosjTable.getValueAt(TabelaAgendamentosjTable.getSelectedRow(), 0);
         agendaController.setFields(idAgendamento);
+        this.AgendarjButton1.setEnabled(false);
+        this.AtualizarAgendamentojButton1.setEnabled(true);
     }//GEN-LAST:event_TabelaAgendamentosjTableMouseClicked
 
     /**
@@ -252,9 +307,11 @@ public class Agenda extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AgendarjButton1;
+    private javax.swing.JButton AtualizarAgendamentojButton1;
     private javax.swing.JFormattedTextField DatajFormattedTextField2;
     private javax.swing.JFormattedTextField HorajFormattedTextField3;
     private javax.swing.JTextField IDjTextField;
+    private javax.swing.JButton LimparCamposjButton;
     private javax.swing.JTextField NomeClientejTextField1;
     private javax.swing.JScrollPane ObservacaojScrollPane1;
     private javax.swing.JTextArea ObservacaojTextArea1;
@@ -347,11 +404,35 @@ public class Agenda extends javax.swing.JFrame {
     }
 
     public void setValorjFormattedTextField1(javax.swing.JFormattedTextField ValorjFormattedTextField1) {
-        this.ValorjFormattedTextField1  = ValorjFormattedTextField1;
-}
+        this.ValorjFormattedTextField1 = ValorjFormattedTextField1;
+    }
 
     public JTable getTabelaAgendamentosjTable() {
         return TabelaAgendamentosjTable;
     }
-    
+
+    private String validarCamposObrigatórios() {
+
+        String mensagem = null;
+
+        if (Utilitarios.Validacao.isNullOrEmpty(this.NomeClientejTextField1.getText())) {
+            mensagem = "Campo de nome do Cliente é obrigatório";
+        } else if (Utilitarios.Validacao.onlyNumbers(this.ValorjFormattedTextField1.getText()).isEmpty()) {
+            mensagem = "Campo de valor do serviço é obrigatório";
+        } else if (Utilitarios.Validacao.onlyNumbers(this.DatajFormattedTextField2.getText()).isEmpty()) {
+            mensagem = "Campo de data é obrigatório";
+        } else if (Utilitarios.Validacao.onlyNumbers(this.HorajFormattedTextField3.getText()).isEmpty()) {
+            mensagem = "Campo de horário é obrigatório";
+        } else if (!Utilitarios.Validacao.validaData(Util.getDataFormatada(this.DatajFormattedTextField2.getText() + " " + this.HorajFormattedTextField3.getText()))) {
+            mensagem = "Data inválida!";
+        }
+
+        if (Utilitarios.Validacao.isNullOrEmpty(mensagem)) {
+            return null;
+        } else {
+            return mensagem;
+        }
+
+    }
+
 }

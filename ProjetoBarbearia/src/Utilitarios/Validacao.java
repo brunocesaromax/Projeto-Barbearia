@@ -5,6 +5,7 @@
  */
 package Utilitarios;
 
+import java.util.Date;
 import java.util.InputMismatchException;
 
 /**
@@ -165,15 +166,27 @@ public class Validacao {
     public static boolean validaEmail(String email) {
         return email.matches("(?<user>[^@]+)@(?<host>.+)");
     }
-    
-     public static boolean isNullOrEmpty(String text) {
-        
-         if(text.trim().isEmpty() || text == null){
-             return true;
-         }else{
-             return false;
-         }
-         
+
+    public static boolean isNullOrEmpty(String text) {
+
+        if (text == null || text.trim().isEmpty()) {
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
+    public static boolean validaData(Date data) {
+        //agendamento.setData(Util.getDataFormatada(view.getDatajFormattedTextField2().getText().concat(" " + view.getHorajFormattedTextField3().getText())));
+
+        Date date = new Date();
+        
+        if(date.after(data)){//Data atual é posterior a data de agendamento?
+            return false;
+        }else{
+            return true; // Caso não seja, a data de agendamento é válida
+        }
+        
+    }
 }

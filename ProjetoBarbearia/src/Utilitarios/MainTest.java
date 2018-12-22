@@ -5,10 +5,8 @@
  */
 package Utilitarios;
 
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -18,8 +16,12 @@ public class MainTest {
 
     public static void main(String args[]) {
 
-        float v = (float) 15.456456;
-        System.out.println("R$" + Util.formatarFloat(v));
+        Date data = new Date();
+        Date data2 = new Date();
+        
+        if(data.before(data2)){
+            System.out.println("ERRO");
+        }
 
     }
 

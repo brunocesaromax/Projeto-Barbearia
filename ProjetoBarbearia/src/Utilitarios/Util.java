@@ -28,7 +28,7 @@ public class Util {
         return date;
     }
 
-    public static float getFloatFormatado(String valor) {
+    public static float getFloatSemVirgulas(String valor) {
 
         if (valor.contains(",")) {
             valor = valor.replace(',', '.');
@@ -37,7 +37,7 @@ public class Util {
         return Float.valueOf(valor);
     }
 
-    public static String formatarFloat(float numero) {
+    public static String formatarFloatDuasCasasDecimais(float numero) {
         String retorno = "";
         DecimalFormat formatter = new DecimalFormat("#.00");
         try {

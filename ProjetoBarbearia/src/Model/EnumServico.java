@@ -12,7 +12,8 @@ package Model;
 public enum EnumServico {
 
     CORTE ("Corte"), BARBA ("Barba"), QUIMICA ("Química"), PIGMENTACAO ("Pigmentação"), 
-    BARBACORTE ("Barba + Corte");
+    BARBACORTE ("Barba + Corte"), SOBRANCELHA ("Sobrancelha"), DESCOLORAÇÃO ("Descoloração"), 
+    DEPILAÇÃO ("Depilação"), UNHA ("Unha"), OUTROS ("Outros");
     
     private String descricao;
  
@@ -35,6 +36,11 @@ public enum EnumServico {
             case 2: return EnumServico.QUIMICA;
             case 3: return EnumServico.PIGMENTACAO;
             case 4: return EnumServico.BARBACORTE;
+            case 5: return EnumServico.SOBRANCELHA;
+            case 6: return EnumServico.DESCOLORAÇÃO;
+            case 7: return EnumServico.DEPILAÇÃO;
+            case 8: return EnumServico.UNHA;
+            case 9: return EnumServico.OUTROS;
             default: return null;  
         }
     }
@@ -48,6 +54,11 @@ public enum EnumServico {
             case "Química": return EnumServico.QUIMICA;
             case "Pigmentação": return EnumServico.PIGMENTACAO;
             case "Barba + Corte": return EnumServico.BARBACORTE;
+            case "Sobrancelha": return EnumServico.SOBRANCELHA;
+            case "Descoloração": return EnumServico.DESCOLORAÇÃO;
+            case "Depilação": return EnumServico.DEPILAÇÃO;
+            case "Unha": return EnumServico.UNHA;
+            case "Outros": return EnumServico.OUTROS;
             default: return null;  
         }
     }

@@ -31,51 +31,65 @@ public class AgendaController {
         this.agendamentoDao = new AgendamentoDao();
     }
 
-    public void salvarNovaAgenda() {
+    public void salvarOuAtualizarAgendamento() {
+
         Agendamento agendamento = helper.getModelo();
         String mensagem;
-        int flag = 0;
 
-//        if(agendamentoDao.numberOfUsername(barbeiro.getNomeUsuario()) == 0){
-//            agendamentoDao.insert(barbeiro);
-//            mensagem = "Barbeiro cadastrado com sucesso!\nClique em VOLTAR para entrar no sistema.";
-//            flag++;
-//        }else{
-//            mensagem = "Já existe barbeiro com esse nome de usuário, tente outro nome de usuário.";
-//        }
-        agendamentoDao.insert(agendamento);
-        JOptionPane.showMessageDialog(null, "Agenda cadastrada com sucesso.");
-        //if(flag > 0){
+        if (agendamento.getId() == null) {
+            agendamentoDao.insert(agendamento);
+            mensagem = "Agendamento cadastrada com sucesso.";
+        } else {
+            agendamentoDao.update(agendamento);
+            mensagem = "Agendamento atualizada com sucesso.";
+        }
+
+        JOptionPane.showMessageDialog(null, mensagem);
         helper.clearTela();
-        //}
     }
 
     public void atualizarTabelaDeAgendamentos() {
 
         ArrayList<Agendamento> agendamentos;
+        String manipuladorValor;
         agendamentos = agendamentoDao.findAllByIdBarbeiro(Login.barbeiroSecao.getId());
         DefaultTableModel dtm = (DefaultTableModel) view.getTabelaAgendamentosjTable().getModel();
         dtm.setNumRows(0);
 
         //ForEach + lambda java 8
-        agendamentos.forEach(agendamento -> {
+        for (Agendamento agendamento : agendamentos) {
+
+            //Tratando valor do agendamento para exibição
+            if (agendamento.getValor() < 1) {
+                manipuladorValor = "R$000" + Util.formatarFloatDuasCasasDecimais(agendamento.getValor());
+            } else if (agendamento.getValor() < 10) {
+                manipuladorValor = "R$00" + Util.formatarFloatDuasCasasDecimais(agendamento.getValor());
+            } else if (agendamento.getValor() < 100) {
+                manipuladorValor = "R$0" + Util.formatarFloatDuasCasasDecimais(agendamento.getValor());
+            } else {
+                manipuladorValor = "R$" + Util.formatarFloatDuasCasasDecimais(agendamento.getValor());
+            }
 
             dtm.addRow(new Object[]{
                 agendamento.getId(),
                 agendamento.getNomeCliente(),
                 agendamento.getServico().getDescricao(),
-                "R$" + Util.formatarFloat(agendamento.getValor()),
+                manipuladorValor,
                 Util.dfDate.format(agendamento.getData()),
                 Util.dfTime.format(agendamento.getData()),
                 agendamento.getObservacao()
             });
 
-        });
+        }
     }
 
     public void setFields(long idAgendamento) {
         Agendamento agendamento = agendamentoDao.findById(idAgendamento);
         helper.setModelo(agendamento);
+    }
+
+    public void limparCampos() {
+        helper.clearTela();
     }
 
 }
