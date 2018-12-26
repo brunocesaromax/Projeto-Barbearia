@@ -64,6 +64,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuItem2.setForeground(new java.awt.Color(1, 1, 1));
         jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Icons/relatorios.png"))); // NOI18N
         jMenuItem2.setText("Relatórios");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem2);
 
         jMenuBar1.add(jMenu2);
@@ -78,6 +83,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         agenda.setVisible(true);
         //this.dispose(); Não é preciso fechar a tela de menu principal
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        Relatorio relatorio = new Relatorio();
+        relatorio.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments

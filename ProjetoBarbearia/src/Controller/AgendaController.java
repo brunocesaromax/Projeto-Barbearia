@@ -24,7 +24,7 @@ public class AgendaController {
 
     private final Agenda view;
     private AgendamentoHelper helper;
-    private AgendamentoDao agendamentoDao;
+    private final AgendamentoDao agendamentoDao;
 
     public AgendaController(Agenda view) {
         this.view = view;
@@ -39,10 +39,10 @@ public class AgendaController {
 
         if (agendamento.getId() == null) {
             agendamentoDao.insert(agendamento);
-            mensagem = "Agendamento cadastrada com sucesso.";
+            mensagem = "Agendamento cadastrado com sucesso.";
         } else {
             agendamentoDao.update(agendamento);
-            mensagem = "Agendamento atualizada com sucesso.";
+            mensagem = "Agendamento atualizado com sucesso.";
         }
 
         JOptionPane.showMessageDialog(null, mensagem);
@@ -53,7 +53,7 @@ public class AgendaController {
 
         ArrayList<Agendamento> agendamentos;
         String manipuladorValor;
-        agendamentoDao.deleteAgendamentosAutomatico(); // Excluindo agendamentos de forma automática, no intervalo de 7 dias
+        //agendamentoDao.deletarAgendamentosAutomatico(); // Excluindo agendamentos de forma automática, no intervalo de 7 dias
         agendamentos = agendamentoDao.findAllByIdBarbeiro(Login.barbeiroSecao.getId());
         DefaultTableModel dtm = (DefaultTableModel) view.getTabelaAgendamentosjTable().getModel();
         dtm.setNumRows(0);

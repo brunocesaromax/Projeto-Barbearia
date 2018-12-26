@@ -296,6 +296,8 @@ public class Agenda extends javax.swing.JFrame {
         agendaController.limparCampos();
         agendaController.atualizarTabelaDeAgendamentos();
         this.AgendarjButton1.setEnabled(true);
+        this.AtualizarAgendamentojButton1.setEnabled(false);
+        this.ExcluirjButton2.setEnabled(false);
 
     }//GEN-LAST:event_ExcluirjButton2ActionPerformed
 
