@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -82,7 +83,7 @@ public class AgendamentoDao {
             ex.printStackTrace();
         }
 
-         return resultado;
+        return resultado;
     }
 
     public ArrayList<Agendamento> findAllByIdBarbeiro(Long idBarbeiro) {
@@ -116,6 +117,32 @@ public class AgendamentoDao {
         return agendamentos;
     }
 
+    public int numeroAgendamentosEmAtrito(Long idBarbeiro , Date data){
+        
+        java.sql.Timestamp date;
+        int contador = 0;
+        
+        //A instrução try -with-resources, que fechará a conexão automaticamente
+        try (Connection conn = ConeccaoMySql.getConexaoMySQL()) {
+            
+            date = new java.sql.Timestamp(data.getTime());// Uso de timestamp para persistir também hora e minuto
+            String sql = "SELECT COUNT(*) FROM Agendamento WHERE fk_barbeiro_id = "+idBarbeiro+" AND ('"+date+"' BETWEEN data AND DATE_ADD(data, INTERVAL 40 minute)) "
+                    + "OR ('"+data+"' BETWEEN DATE_SUB(data, INTERVAL 40 minute) AND data)";
+                        
+            Statement statement = conn.prepareStatement(sql);
+            ResultSet result = statement.executeQuery(sql);
+            
+            while(result.next()){
+                contador = (int) result.getLong("COUNT(*)");
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return contador;
+    } 
+
     public Agendamento findById(Long id) {
 
         boolean resultado = false;
@@ -146,17 +173,17 @@ public class AgendamentoDao {
         return agendamento;
     }
 
-    public boolean delete(Long id) {
+    public boolean deleteAgendamentosAutomatico() {
 
         boolean resultado = false;
 
         //A instrução try -with-resources, que fechará a conexão automaticamente
         try (Connection conn = ConeccaoMySql.getConexaoMySQL()) {
-
-            String sql = "DELETE FROM Agendamento WHERE id=?";
+            //DATE_ADD("2017-06-15 09:34:21", INTERVAL 15 MINUTE)
+            String sql = "DELETE FROM Agendamento WHERE CURRENT_TIMESTAMP() > DATE_ADD(data, INTERVAL 7 DAY)";
 
             PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setString(1, String.valueOf(id));
+            //statement.setString(1, String.valueOf(id));
 
             int rowsDeleted = statement.executeUpdate();
             if (rowsDeleted > 0) {
@@ -170,4 +197,25 @@ public class AgendamentoDao {
         return resultado;
 
     }
+
+    public void delete(Long id) {
+
+        //A instrução try -with-resources, que fechará a conexão automaticamente
+        try (Connection conn = ConeccaoMySql.getConexaoMySQL()) {
+
+            String sql = "DELETE FROM Agendamento WHERE id = ?";
+
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setLong(1, id);
+
+            statement.executeUpdate();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+    }
 }
+
+
+//SELECT COUNT(*) FROM barbearia.Agendamento where data >= date_sub('2019-09-18 23:00:00', interval 40 minute);

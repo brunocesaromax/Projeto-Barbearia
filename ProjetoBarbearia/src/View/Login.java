@@ -121,6 +121,7 @@ public class Login extends javax.swing.JFrame {
         
         Cadastro cadastro = new Cadastro();
         cadastro.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_CadastrarjToggleButtonActionPerformed
 
     /**

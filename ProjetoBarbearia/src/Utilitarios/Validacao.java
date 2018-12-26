@@ -6,6 +6,7 @@
 package Utilitarios;
 
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.InputMismatchException;
 
 /**
@@ -178,15 +179,98 @@ public class Validacao {
     }
 
     public static boolean validaData(Date data) {
-        //agendamento.setData(Util.getDataFormatada(view.getDatajFormattedTextField2().getText().concat(" " + view.getHorajFormattedTextField3().getText())));
 
         Date date = new Date();
-        
-        if(date.after(data)){//Data atual é posterior a data de agendamento?
+
+        if (date.after(data)) {//Data atual é posterior a data de agendamento?
             return false;
-        }else{
+        } else {
             return true; // Caso não seja, a data de agendamento é válida
         }
-        
+
     }
+    
+    //Validando data em seus à nível de dia, mês e ano, formato dd/MM/yyyy
+    public static boolean validaData(String data) {
+
+        String[] parts = data.split("/");
+        String parte1 = parts[0];//dia
+        String parte2 = parts[1];//mes 
+        String parte3 = parts[2];//ano
+
+        int dia = Integer.valueOf(parte1);
+        int mes = Integer.valueOf(parte2);
+        int ano = Integer.valueOf(parte3);
+
+        boolean resultado = true;
+
+        //Tratando fevereiro
+        if (mes == 2) {
+
+            if (new GregorianCalendar().isLeapYear(ano)) {// Verifica se ano é bissexto
+
+                if (dia > 0 && dia <= 29) {
+                    resultado = true;
+                } else {
+                    resultado = false;
+                }
+            } else {
+
+                if (dia > 0 && dia <= 28) {
+                    resultado = true;
+                } else {
+                    resultado = false;
+                }
+            }
+
+        } else {
+
+            if ((mes == 1 || mes == 8 || mes % 2 != 0) && mes <= 12) {
+
+                if (dia > 0 && dia <= 31) {
+                    resultado = true;
+                } else {
+                    resultado = false;
+                }
+
+            } else {
+
+                if (mes <= 12) {
+
+                    if (dia > 0 && dia <= 30) {
+                        resultado = true;
+                    } else {
+                        resultado = false;
+                    }
+                }else{
+                    resultado = false;
+                }
+            }
+        }
+
+        return resultado;
+
+    }
+
+    //Validando horario no sentido de horas > 23 || horas < 0 e minutos <= 59 || minutos >= 0
+    public static boolean validaHorario(String data) {
+
+        String[] parts = data.split(":");
+        String parte1 = parts[0];
+        String parte2 = parts[1];
+
+        int horas = Integer.valueOf(parte1);
+        int minutos = Integer.valueOf(parte2);
+        boolean resultado = true;
+
+        if (horas > 23 || horas < 0) {
+            resultado = false;
+        }
+        if (resultado == true && (minutos > 59 || minutos < 0)) {
+            resultado = false;
+        }
+
+        return resultado;
+    }
+
 }

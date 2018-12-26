@@ -15,13 +15,12 @@ import java.util.Date;
 public class MainTest {
 
     public static void main(String args[]) {
-
-        Date data = new Date();
-        Date data2 = new Date();
         
-        if(data.before(data2)){
-            System.out.println("ERRO");
-        }
+        String data = "88/03/2001";
+        
+      boolean res =   Utilitarios.Validacao.validaData(data);
+        
+        System.out.println(res);
 
     }
 
