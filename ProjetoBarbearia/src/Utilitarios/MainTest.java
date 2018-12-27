@@ -5,8 +5,7 @@
  */
 package Utilitarios;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import javax.swing.filechooser.FileSystemView;
 
 /**
  *
@@ -15,12 +14,9 @@ import java.util.Date;
 public class MainTest {
 
     public static void main(String args[]) {
-        
-        String data = "88/03/2001";
-        
-      boolean res =   Utilitarios.Validacao.validaData(data);
-        
-        System.out.println(res);
+
+        FileSystemView system = FileSystemView.getFileSystemView();
+        System.out.println(system.getHomeDirectory().getPath());
 
     }
 

@@ -1,7 +1,7 @@
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * AND open the template in the editor.
  */
 package Dao;
 
@@ -86,18 +86,40 @@ public class AgendamentoDao {
         return resultado;
     }
 
-    public ArrayList<Agendamento> findAllByIdBarbeiro(Long idBarbeiro) {
+    public ArrayList<Agendamento> findAllByIdBarbeiro(Long idBarbeiro, int qtdDias) {
 
-        boolean resultado = false;
         ArrayList<Agendamento> agendamentos = new ArrayList<>();
 
         //A instrução try -with-resources, que fechará a conexão automaticamente
         try (Connection conn = ConeccaoMySql.getConexaoMySQL()) {
 
-            String sql = "SELECT * FROM Agendamento WHERE fk_barbeiro_id =" + idBarbeiro + " ORDER BY data";
+            StringBuilder sql = new StringBuilder("SELECT * FROM Agendamento WHERE fk_barbeiro_id = " + idBarbeiro);
+            String clausulaOrderBy = " ORDER BY data";
 
-            Statement statement = conn.prepareStatement(sql);
-            ResultSet result = statement.executeQuery(sql);
+            switch (qtdDias) {
+                case 7:
+                    sql.append(" AND data BETWEEN DATE_SUB(CURRENT_TIMESTAMP(), INTERVAL 7 DAY) AND  CURRENT_TIMESTAMP()");
+                    break;
+                case 30:
+                    sql.append(" AND data BETWEEN DATE_SUB(CURRENT_TIMESTAMP(), INTERVAL 1 MONTH) AND  CURRENT_TIMESTAMP()");
+                    break;
+                case 90:
+                    sql.append(" AND data BETWEEN DATE_SUB(CURRENT_TIMESTAMP(), INTERVAL 3 MONTH) AND  CURRENT_TIMESTAMP()");
+                    break;
+                case 180:
+                    sql.append(" AND data BETWEEN DATE_SUB(CURRENT_TIMESTAMP(), INTERVAL 6 MONTH) AND  CURRENT_TIMESTAMP()");
+                    break;
+                case 365:
+                    sql.append(" AND data BETWEEN DATE_SUB(CURRENT_TIMESTAMP(), INTERVAL 1 YEAR) AND  CURRENT_TIMESTAMP()");
+                    break;
+                default:
+                    break;
+            }
+
+            sql.append(clausulaOrderBy);
+
+            Statement statement = conn.prepareStatement(sql.toString());
+            ResultSet result = statement.executeQuery(sql.toString());
 
             while (result.next()) {
                 Agendamento agendamento = new Agendamento();
@@ -117,21 +139,21 @@ public class AgendamentoDao {
         return agendamentos;
     }
 
-    public int numeroAgendamentosEmAtrito(Long idBarbeiro , Date data){
-        
+    public int numeroAgendamentosEmAtrito(Long idBarbeiro, Date data) {
+
         java.sql.Timestamp date;
         int contador = 0;
-        
+
         //A instrução try -with-resources, que fechará a conexão automaticamente
         try (Connection conn = ConeccaoMySql.getConexaoMySQL()) {
-            
+
             date = new java.sql.Timestamp(data.getTime());// Uso de timestamp para persistir também hora e minuto
-            String sql = "SELECT COUNT(*) FROM Agendamento WHERE fk_barbeiro_id = 5 AND ('"+date+"' BETWEEN data AND DATE_ADD(data, INTERVAL 40 MINUTE)) OR ('"+date+"' BETWEEN DATE_SUB(data, INTERVAL 40 MINUTE) AND data);";
-                        
+            String sql = "SELECT COUNT(*) FROM Agendamento WHERE fk_barbeiro_id = 5 AND ('" + date + "' BETWEEN data AND DATE_ADD(data, INTERVAL 40 MINUTE)) OR ('" + date + "' BETWEEN DATE_SUB(data, INTERVAL 40 MINUTE) AND data);";
+
             Statement statement = conn.prepareStatement(sql);
             ResultSet result = statement.executeQuery(sql);
-            
-            while(result.next()){
+
+            while (result.next()) {
                 contador = (int) result.getLong("COUNT(*)");
             }
 
@@ -140,7 +162,7 @@ public class AgendamentoDao {
         }
 
         return contador;
-    } 
+    }
 
     public Agendamento findById(Long id) {
 
@@ -171,15 +193,15 @@ public class AgendamentoDao {
 
         return agendamento;
     }
-    
-    //Deletando agendamentos de forma automática sempre que um agendamento ou atualização for feito, dessa forma manterá a tabela de agendamento sempre atualizada próximo a data atual
+
+    /*DeletANDo agendamentos de forma automática sempre que um agendamento ou atualização for feito, dessa forma manterá a tabela de agendamento sempre atualizada próximo a data atual
     public static boolean deletarAgendamentosAutomatico() {
 
         boolean resultado = false;
 
         //A instrução try -with-resources, que fechará a conexão automaticamente
         try (Connection conn = ConeccaoMySql.getConexaoMySQL()) {
-
+            
             String sql = "DELETE FROM Agendamento WHERE CURRENT_TIMESTAMP() > DATE_ADD(data, INTERVAL 7 DAY)";
 
             PreparedStatement statement = conn.prepareStatement(sql);
@@ -196,7 +218,7 @@ public class AgendamentoDao {
 
         return resultado;
 
-    }
+    }*/
 
     public void delete(Long id) {
 
@@ -215,7 +237,38 @@ public class AgendamentoDao {
         }
 
     }
+
+    public ArrayList<Agendamento> findAllByIdBarbeiroAndInterval(Long idBarbeiro, Date dataInicio, Date dataFim) {
+
+        ArrayList<Agendamento> agendamentos = new ArrayList<>();
+        java.sql.Timestamp dataInicioSQL;
+        java.sql.Timestamp dataFimSQL;
+
+        //A instrução try -with-resources, que fechará a conexão automaticamente
+        try (Connection conn = ConeccaoMySql.getConexaoMySQL()) {
+            
+            dataInicioSQL = new java.sql.Timestamp(dataInicio.getTime());
+            dataFimSQL = new java.sql.Timestamp(dataFim.getTime());
+            
+            String sql = "SELECT * FROM Agendamento WHERE fk_barbeiro_id = " + idBarbeiro + " AND data BETWEEN '" + dataInicioSQL + "' AND DATE_ADD('" + dataFimSQL + "', INTERVAL 1 DAY) ORDER BY data";
+            Statement statement = conn.prepareStatement(sql);
+            ResultSet result = statement.executeQuery(sql);
+
+            while (result.next()) {
+                Agendamento agendamento = new Agendamento();
+                agendamento.setId(result.getLong("id"));
+                agendamento.setNomeCliente(result.getString("nomeCliente"));
+                agendamento.setValor(result.getFloat("valor"));
+                agendamento.setData(result.getTimestamp("data"));
+                agendamento.setServico(EnumServico.valueOf(result.getInt("servico")));
+                agendamento.setObservacao(result.getString("observacao"));
+                agendamentos.add(agendamento);
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return agendamentos;
+    }
 }
-
-
-//SELECT COUNT(*) FROM barbearia.Agendamento where data >= date_sub('2019-09-18 23:00:00', interval 40 minute);

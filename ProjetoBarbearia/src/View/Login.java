@@ -23,7 +23,7 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
 //      //Sempre que a tela de login é carregada, ou seja, o sistema é iniciado a rotina de deletar agendamentos antigos (1 semana é executado)
-        AgendamentoDao.deletarAgendamentosAutomatico();
+        //AgendamentoDao.deletarAgendamentosAutomatico();
         loginController = new LoginController(this);
     }
 
@@ -193,6 +193,5 @@ public class Login extends javax.swing.JFrame {
     }
     
     
-   
     
 }

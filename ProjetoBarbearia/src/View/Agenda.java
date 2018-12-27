@@ -5,7 +5,7 @@
  */
 package View;
 
-import Controller.AgendaController;
+import Controller.AgendamentoController;
 import Model.EnumServico;
 import Utilitarios.Util;
 import java.util.ArrayList;
@@ -18,14 +18,14 @@ import javax.swing.*;
  */
 public class Agenda extends javax.swing.JFrame {
 
-    private final AgendaController agendaController;
+    private final AgendamentoController agendaController;
 
     public Agenda() {
         initComponents();
         this.AtualizarAgendamentojButton1.setEnabled(false);
         this.ExcluirjButton2.setEnabled(false);
         iniciarServicos();
-        agendaController = new AgendaController(this);
+        agendaController = new AgendamentoController(this);
         agendaController.atualizarTabelaDeAgendamentos();
     }
 

@@ -94,6 +94,5 @@ public class Agendamento {
     public void setBarbeiro(Barbeiro barbeiro) {
         this.barbeiro = barbeiro;
     }
-
         
 }

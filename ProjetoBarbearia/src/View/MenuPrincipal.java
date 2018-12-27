@@ -40,6 +40,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Imagens/AgendaFundo.png"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
+        jMenuBar1.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+
         jMenu1.setBackground(new java.awt.Color(229, 196, 62));
         jMenu1.setText("Agendamento");
 

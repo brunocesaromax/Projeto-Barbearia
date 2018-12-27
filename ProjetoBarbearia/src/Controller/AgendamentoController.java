@@ -12,7 +12,6 @@ import Utilitarios.Util;
 import View.Agenda;
 import View.Login;
 import java.util.ArrayList;
-import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -20,13 +19,13 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author brunocesar
  */
-public class AgendaController {
+public class AgendamentoController {
 
     private final Agenda view;
     private AgendamentoHelper helper;
     private final AgendamentoDao agendamentoDao;
 
-    public AgendaController(Agenda view) {
+    public AgendamentoController(Agenda view) {
         this.view = view;
         this.helper = new AgendamentoHelper(view);
         this.agendamentoDao = new AgendamentoDao();
@@ -53,8 +52,8 @@ public class AgendaController {
 
         ArrayList<Agendamento> agendamentos;
         String manipuladorValor;
-        //agendamentoDao.deletarAgendamentosAutomatico(); // Excluindo agendamentos de forma automática, no intervalo de 7 dias
-        agendamentos = agendamentoDao.findAllByIdBarbeiro(Login.barbeiroSecao.getId());
+        //agendamentoDao.inativarAgendamentosAutomatico(); // Excluindo agendamentos de forma automática, no intervalo de 7 dias
+        agendamentos = agendamentoDao.findAllByIdBarbeiro(Login.barbeiroSecao.getId(),0);
         DefaultTableModel dtm = (DefaultTableModel) view.getTabelaAgendamentosjTable().getModel();
         dtm.setNumRows(0);
 
