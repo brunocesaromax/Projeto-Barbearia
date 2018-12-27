@@ -16,6 +16,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
      */
     public MenuPrincipal() {
         initComponents();
+        this.pack();
+        this.setLocationRelativeTo(null);
+        setResizable(false);
     }
 
     /**

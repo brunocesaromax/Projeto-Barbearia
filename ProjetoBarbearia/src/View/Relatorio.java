@@ -27,6 +27,9 @@ public class Relatorio extends javax.swing.JFrame {
     public Relatorio() {
         relatorioController = new RelatorioController(this);
         initComponents();
+        this.pack();
+        this.setLocationRelativeTo(null);
+        setResizable(false);
     }
 
     /**

@@ -6,7 +6,6 @@
 package View;
 
 import Controller.LoginController;
-import Dao.AgendamentoDao;
 import Model.Barbeiro;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -19,9 +18,13 @@ public class Login extends javax.swing.JFrame {
 
     private final LoginController loginController;
     public static Barbeiro barbeiroSecao;
-    
+
     public Login() {
         initComponents();
+        this.pack();
+        this.setLocationRelativeTo(null);
+        setResizable(false);
+        //this.setVisible(true);
 //      //Sempre que a tela de login é carregada, ou seja, o sistema é iniciado a rotina de deletar agendamentos antigos (1 semana é executado)
         //AgendamentoDao.deletarAgendamentosAutomatico();
         loginController = new LoginController(this);
@@ -121,7 +124,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_SenhajPasswordField1ActionPerformed
 
     private void CadastrarjToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastrarjToggleButtonActionPerformed
-        
+
         Cadastro cadastro = new Cadastro();
         cadastro.setVisible(true);
         this.setVisible(false);
@@ -175,7 +178,6 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     // End of variables declaration//GEN-END:variables
 
-    
     public JTextField getUsuariojTextField1() {
         return UsuariojTextField1;
     }
@@ -191,7 +193,5 @@ public class Login extends javax.swing.JFrame {
     public void setSenhajPasswordField1(JPasswordField SenhajPasswordField1) {
         this.SenhajPasswordField1 = SenhajPasswordField1;
     }
-    
-    
-    
+
 }

@@ -20,6 +20,9 @@ public class Cadastro extends javax.swing.JFrame {
 
     public Cadastro() {
         initComponents();
+        this.pack();
+        this.setLocationRelativeTo(null);
+        setResizable(false);
         controller = new CadastroController(this);
     }
 

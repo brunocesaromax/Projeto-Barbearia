@@ -22,6 +22,9 @@ public class Agenda extends javax.swing.JFrame {
 
     public Agenda() {
         initComponents();
+        this.pack();
+        this.setLocationRelativeTo(null);
+        setResizable(false);
         this.AtualizarAgendamentojButton1.setEnabled(false);
         this.ExcluirjButton2.setEnabled(false);
         iniciarServicos();
